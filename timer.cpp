@@ -10,14 +10,18 @@ void Timer::Reset(TimerState new_state) {
 }
 
 void Timer::Pause() {
-    _end_time_point = high_res_clock::now();
-    _prev_duration += ComputeDuration(_start_time_point, _end_time_point);
-    _state = TimerState::kPaused;
+    if (_state == TimerState::kRunning) {
+        _end_time_point = high_res_clock::now();
+        _prev_duration += ComputeDuration(_start_time_point, _end_time_point);
+        _state = TimerState::kPaused;
+    }
 }
 
 void Timer::Resume() {
-    _state = TimerState::kPaused;
-    _start_time_point = high_res_clock::now();
+    if (_state == TimerState::kPaused) {
+        _state = TimerState::kRunning;
+        _start_time_point = high_res_clock::now();
+    }
 }
 
 double Timer::GetSeconds() {
