@@ -9,8 +9,8 @@ enum class TimerState {
 
 class Timer {
   public:
-    // Constructs timer with optional initial state (running if unspecified)
-    Timer(TimerState initial_state = TimerState::kRunning);
+    // Constructs timer with the given initial state
+    Timer(TimerState initial_state);
 
     // Resets timer and sets state (running if unspecified)
     void Reset(TimerState new_state = TimerState::kRunning);
